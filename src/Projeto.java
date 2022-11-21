@@ -130,7 +130,7 @@ public class Projeto {
         }
     }
 
-    private static String verificarLocalHoraData() {
+    private static String verificarLocalHoraData() {           //verificarLocalHoraData//
         String informacoes = sc.nextLine();
         return informacoes;
     }

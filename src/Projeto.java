@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Scanner;
 
 public class Projeto {
@@ -5,6 +6,7 @@ public class Projeto {
 
     public static void main(String[] args) {
         String informacoes = verificarLocalHoraData();
+        File input= new File("c:/temp/input.txt");
         int L = sc.nextInt(); //?
         int C = sc.nextInt();//?
         int[][] temperaturas = new int[L][C];

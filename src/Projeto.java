@@ -18,7 +18,7 @@ public class Projeto {
         percentagemAlteracao(mostrarNovoMA(temperaturas,L,C),L,C);
     }
 
-    private static void percentagemAlteracao(int[][] Temperaturas,int L,int C) {      //int [][] Temperaturas = int [][] mostrarNovoMA
+    private static void percentagemAlteracao(int[][] Temperaturas,int L,int C) {     // //int [][] Temperaturas = int [][] mostrarNovoMA
         int[][] temperaturaSomada=new int[L][C];
         for (int h = 0; h < L; h++) {
             for (int i = 0; i < C; i++) {

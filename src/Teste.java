@@ -16,50 +16,71 @@ public class Teste {
                     temperaturas[h][i]=in.nextInt();
                 }
             }
+            System.out.println("b)");
             mostrarMT(temperaturas, L, C);
+            System.out.println("c)");
             mostrarMA(temperaturas,L,C);
+            System.out.println("d)");
             mostrarNovoMA(temperaturas,L,C);
-            mostrarArea(temperaturas,L,C);
-            mostrarTemperatura(temperaturas,L,C);
-            percentagemAlteracao(mostrarNovoMA(temperaturas,L,C),L,C);
+            System.out.println("e)");
+            mostrarAreaAfetada(temperaturas,L,C);
+            System.out.println("f)");
+            mostrarTemperaturamenor(temperaturas,L,C);
+            System.out.println("g)");
+            percentagemAlteracao(temperaturas,L,C);
         }
 
         private static void percentagemAlteracao(int[][] Temperaturas,int L,int C) {     // //int [][] Temperaturas = int [][] mostrarNovoMA
             int[][] temperaturaSomada=new int[L][C];
+            String[][] MAtemperaturas= new String[L][C];
+            String[][] MAtemperaturasSomadas=new String[L][C];
             for (int h = 0; h < L; h++) {
                 for (int i = 0; i < C; i++) {
-                    temperaturaSomada[h][i]=Temperaturas[h][i]+10;
+                    temperaturaSomada[h][i]=Temperaturas[h][i];
+                    Temperaturas[h][i]-=10;
                 }
             }
             for (int h = 0; h < L; h++) {
                 for (int i = 0; i < C; i++) {
-                    if (temperaturaSomada[L][C] < 20) {
-                        System.out.print("M");
-                    } else if (temperaturaSomada[L][C] >= 20 && temperaturaSomada[L][C] < 30) {
-                        System.out.print("H");
-                    } else if (temperaturaSomada[L][C] >= 30 && temperaturaSomada[L][C] < 40) {
-                        System.out.print("E");
-                    } else if (temperaturaSomada[L][C] >= 40) {
-                        System.out.print("C");
+                    if (temperaturaSomada[h][i] < 20) {
+                        MAtemperaturasSomadas[h][i]= "M";
+                    } else if (temperaturaSomada[h][i] >= 20 && temperaturaSomada[h][i] < 30) {
+                        MAtemperaturasSomadas[h][i]= "H";
+                    } else if (temperaturaSomada[h][i] >= 30 && temperaturaSomada[h][i] < 40) {
+                        MAtemperaturasSomadas[h][i]= "E";
+                    } else  {
+                        MAtemperaturasSomadas[h][i]= "C";
                     }
                 }
             }
             for (int h = 0; h < L; h++) {
                 for (int i = 0; i < C; i++) {
-                    if (temperaturaSomada[L][C] < 20) {
-                        System.out.print("M");
-                    } else if (temperaturaSomada[L][C] >= 20 && temperaturaSomada[L][C] < 30) {
-                        System.out.print("H");
-                    } else if (temperaturaSomada[L][C] >= 30 && temperaturaSomada[L][C] < 40) {
-                        System.out.print("E");
-                    } else if (temperaturaSomada[L][C] >= 40) {
-                        System.out.print("C");
+                    if (Temperaturas[h][i] < 20) {
+                        MAtemperaturas[h][i]= "M";
+                    } else if (Temperaturas[h][i] >= 20 && Temperaturas[h][i] < 30) {
+                        MAtemperaturas[h][i]= "H";
+                    } else if (Temperaturas[h][i] >= 30 && Temperaturas[h][i] < 40) {
+                        MAtemperaturas[h][i]= "E";
+                    } else  {
+                        MAtemperaturas[h][i]= "C";
                     }
                 }
             }
+            for (int h = 0; h < L; h++) {
+                for (int i = 0; i < C; i++) {
+                    if(!MAtemperaturas[h][i].equals(MAtemperaturasSomadas[h][i])){
+                        System.out.printf(MAtemperaturas[h][i]);
+                    }else{                                                                      //escrita dos valores de temperatura na tela//
+                        System.out.printf(MAtemperaturasSomadas[h][i]);
+                    }
+                }
+                System.out.println();
+            }
+            System.out.println();
         }
 
-        private static void mostrarTemperatura(int[][] temperaturas, int L, int C) {
+
+        private static void mostrarTemperaturamenor(int[][] temperaturas, int L, int C) {
             int menor=10000;                   //? perguntar
             int diferencaCatastrophic;
             for (int h=0;h<L;h++){
@@ -70,10 +91,11 @@ public class Teste {
                 }
             }
             diferencaCatastrophic=40-menor;
-            System.out.println("To get all terrain on CATASTROPHIC alert, the temperature has to rise :" + diferencaCatastrophic + "ÂºC");
+            System.out.println("To get all terrain on CATASTROPHIC alert, the temperature has to rise : " + diferencaCatastrophic + " ºC");
+            System.out.println();
         }
 
-        private static void mostrarArea(int[][] temperaturas, int L, int C) {
+        private static void mostrarAreaAfetada(int[][] temperaturas, int L, int C) {
             double contardorTemperaturas= L* C;
             int contadorModerate=0;
             int contadorHight=0;
@@ -81,13 +103,13 @@ public class Teste {
             int contadorCatastrophic=0;
             for (int h = 0; h < L; h++) {
                 for (int i = 0; i < C; i++) {
-                    if (temperaturas[L][C] < 20) {
+                    if (temperaturas[h][i] < 20) {
                         contadorModerate++;
-                    } else if (temperaturas[L][C] >= 20 && temperaturas[L][C] < 30) {
+                    } else if (temperaturas[h][i] >= 20 && temperaturas[h][i] < 30) {
                         contadorHight++;
-                    } else if (temperaturas[L][C] >= 30 && temperaturas[L][C] < 40) {
+                    } else if (temperaturas[h][i] >= 30 && temperaturas[h][i] < 40) {
                         contadorExtreme++;
-                    } else if (temperaturas[L][C] >= 40) {
+                    } else if (temperaturas[h][i] >= 40) {
                         contadorCatastrophic++;
                     }
                 }
@@ -95,7 +117,7 @@ public class Teste {
             System.out.printf("Moderate      :%8.2f%%%n",media(contadorModerate,contardorTemperaturas));
             System.out.printf("Hight         :%8.2f%%%n",media(contadorHight,contardorTemperaturas));
             System.out.printf("Extreme       :%8.2f%%%n",media(contadorExtreme,contardorTemperaturas));
-            System.out.printf("Catastrophic  :%8.2f%%%n",media(contadorCatastrophic,contardorTemperaturas));
+            System.out.printf("Catastrophic  :%8.2f%%%n\n",media(contadorCatastrophic,contardorTemperaturas));
 
         }
 
@@ -105,50 +127,61 @@ public class Teste {
         }
 
         private static int[][] mostrarNovoMA(int[][] temperaturas, int L, int C) {
-            for (int h=0;h<L;h++){
-                for (int i=0;i<C;i++){
-                    temperaturas[h][i]-=10;
+            for (int h = 0; h < L; h++) {
+                for (int i = 0; i < C; i++) {
+                    temperaturas[h][i] -= 10;
                 }
             }
-            if (temperaturas[L][C] < 20) {
-                System.out.print("M");
-            } else if (temperaturas[L][C] >= 20 && temperaturas[L][C] < 30) {
-                System.out.print("H");
-            } else if (temperaturas[L][C] >= 30 && temperaturas[L][C] < 40) {
-                System.out.print("E");
-            } else if (temperaturas[L][C] >= 40) {
-                System.out.print("C");
+            for (int h = 0; h < L; h++) {
+                for (int i = 0; i < C; i++) {
+                    System.out.printf("%4d", temperaturas[h][i]);                  //escrita dos valores de temperatura na tela//
+                }
+                System.out.println();
             }
+            System.out.println();
+            for (int h = 0; h < L; h++) {
+                for (int i = 0; i < C; i++) {
+                    if (temperaturas[h][i] < 20) {
+                        System.out.print("M");
+                    } else if (temperaturas[h][i] >= 20 && temperaturas[h][i] < 30) {
+                        System.out.print("H");
+                    } else if (temperaturas[h][i] >= 30 && temperaturas[h][i] < 40) {
+                        System.out.print("E");
+                    } else if (temperaturas[h][i] >= 40) {
+                        System.out.print("C");
+                    }
+                }
+                System.out.println();
+            }
+            System.out.println();
             return temperaturas;
         }
 
         private static void mostrarMA(int[][] temperaturas, int L, int C) {
             for (int h = 0; h < L; h++) {
                 for (int i = 0; i < C; i++) {
-                    if (temperaturas[L][C] < 20) {
+                    if (temperaturas[h][i] < 20) {
                         System.out.print("M");
-                    } else if (temperaturas[L][C] >= 20 && temperaturas[L][C] < 30) {
+                    } else if (temperaturas[h][i] >= 20 && temperaturas[h][i] < 30) {
                         System.out.print("H");
-                    } else if (temperaturas[L][C] >= 30 && temperaturas[L][C] < 40) {
+                    } else if (temperaturas[h][i] >= 30 && temperaturas[h][i] < 40) {
                         System.out.print("E");
-                    } else if (temperaturas[L][C] >= 40) {
+                    } else  {
                         System.out.print("C");
                     }
                 }
+                System.out.println();
             }
         }
 
-        private static String verificarLocalHoraData() {           //verificarLocalHoraData//
-            String informacoes = sc.nextLine();
-            return informacoes;
-        }
 
         private static void mostrarMT(int[][] temperaturas, int L, int C) {
             for (int h = 0; h < L; h++) {
                 for (int i = 0; i < C; i++) {
-                    System.out.printf("%d4d", temperaturas[h][i]);                  //escrita dos valores de temperatura na tela//
+                    System.out.printf("%4d", temperaturas[h][i]);                  //escrita dos valores de temperatura na tela//
                 }
                 System.out.println();
             }
+            System.out.println();
         }
     }

@@ -30,13 +30,15 @@ public class Teste {
             String[][] MAalteradopor10C = percentagemAlteracao(Temperaturas,L,C);
             System.out.println("h)");
             MAafetadopelovento(MAalteradopor10C,L,C);
+            System.out.println("i)");
 
         }
 
+
     private static void MAafetadopelovento(String[][] MAalteradopor10C, int L, int C) {
         String[][] MAalteradopelosalertas=MAalteradopor10C;
-            for (int h = 1; h < L; h++) {
-                for (int i = 0; i < C; i++) {
+            for (int h = L-1; h >0; h--) {
+                for (int i = C-1; i >=0; i--) {
                     if(MAalteradopor10C[h-1][i].equals("C")){
                         MAalteradopelosalertas[h][i]="C";
                     }
@@ -108,7 +110,7 @@ public class Teste {
             }
             System.out.println();
             double percentagemdetemperaturasalteradas=((double)contadorMAalterados/contadortotal)*100;
-            System.out.printf("Alert Levels changes due to temperature variations by 10ºC : %.2f%%\n", percentagemdetemperaturasalteradas);
+            System.out.printf("Alert Levels changes due to temperature variations by 10ºC : %.2f%%\n\n", percentagemdetemperaturasalteradas);
             return MAfinalcomparacao;
         }
 
@@ -205,6 +207,7 @@ public class Teste {
                 }
                 System.out.println();
             }
+            System.out.println();
         }
 
 

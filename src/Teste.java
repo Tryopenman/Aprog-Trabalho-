@@ -27,12 +27,31 @@ public class Teste {
             System.out.println("f)");
             mostrarTemperaturamenor(temperaturas,L,C);
             System.out.println("g)");
-            percentagemAlteracao(Temperaturas,L,C);
+            String[][] MAalteradopor10C = percentagemAlteracao(Temperaturas,L,C);
             System.out.println("h)");
+            MAafetadopelovento(MAalteradopor10C,L,C);
 
         }
 
-        private static void percentagemAlteracao(int[][] Temperaturas,int L,int C) {     // //int [][] Temperaturas = int [][] mostrarNovoMA
+    private static void MAafetadopelovento(String[][] MAalteradopor10C, int L, int C) {
+        String[][] MAalteradopelosalertas=MAalteradopor10C;
+            for (int h = 1; h < L; h++) {
+                for (int i = 0; i < C; i++) {
+                    if(MAalteradopor10C[h-1][i].equals("C")){
+                        MAalteradopelosalertas[h][i]="C";
+                    }
+                }
+            }
+        for (int h = 0; h < L; h++) {
+            for (int i = 0; i < C; i++) {
+                System.out.printf("%s", MAalteradopelosalertas[h][i]);
+            }
+            System.out.println();
+        }
+        System.out.println();
+        }
+
+    private static String[][] percentagemAlteracao(int[][] Temperaturas,int L,int C) {     // //int [][] Temperaturas = int [][] mostrarNovoMA
             int[][] temperaturaSomada= new int[L][C];
             int[][] temperaturas = Temperaturas;
             String[][] MAtemperaturas= new String[L][C];
@@ -90,6 +109,7 @@ public class Teste {
             System.out.println();
             double percentagemdetemperaturasalteradas=((double)contadorMAalterados/contadortotal)*100;
             System.out.printf("Alert Levels changes due to temperature variations by 10ºC : %.2f%%\n", percentagemdetemperaturasalteradas);
+            return MAfinalcomparacao;
         }
 
 

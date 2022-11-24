@@ -21,23 +21,25 @@ public class Teste {
             System.out.println("c)");
             mostrarMA(temperaturas,L,C);
             System.out.println("d)");
-            mostrarNovoMA(temperaturas,L,C);
+            int[][] Temperaturas = mostrarNovoMA(temperaturas,L,C);
             System.out.println("e)");
             mostrarAreaAfetada(temperaturas,L,C);
             System.out.println("f)");
             mostrarTemperaturamenor(temperaturas,L,C);
             System.out.println("g)");
-            percentagemAlteracao(temperaturas,L,C);
+            percentagemAlteracao(Temperaturas,L,C);
+            System.out.println("h)");
+
         }
 
         private static void percentagemAlteracao(int[][] Temperaturas,int L,int C) {     // //int [][] Temperaturas = int [][] mostrarNovoMA
-            int[][] temperaturaSomada=new int[L][C];
+            int[][] temperaturaSomada= new int[L][C];
+            int[][] temperaturas = Temperaturas;
             String[][] MAtemperaturas= new String[L][C];
             String[][] MAtemperaturasSomadas=new String[L][C];
             for (int h = 0; h < L; h++) {
                 for (int i = 0; i < C; i++) {
-                    temperaturaSomada[h][i]=Temperaturas[h][i];
-                    Temperaturas[h][i]-=10;
+                    temperaturaSomada[h][i]=Temperaturas[h][i] + 10;
                 }
             }
             for (int h = 0; h < L; h++) {
@@ -66,17 +68,28 @@ public class Teste {
                     }
                 }
             }
+            int contadortotal=L*C;
+            String[][] MAfinalcomparacao = new String[L][C];
+            int contadorMAalterados=0;
             for (int h = 0; h < L; h++) {
                 for (int i = 0; i < C; i++) {
                     if(!MAtemperaturas[h][i].equals(MAtemperaturasSomadas[h][i])){
-                        System.out.printf(MAtemperaturas[h][i]);
+                        MAfinalcomparacao[h][i]=MAtemperaturasSomadas[h][i];
+                        contadorMAalterados++;
                     }else{                                                                      //escrita dos valores de temperatura na tela//
-                        System.out.printf(MAtemperaturasSomadas[h][i]);
+                        MAfinalcomparacao[h][i]=MAtemperaturas[h][i];
                     }
+                }
+            }
+            for (int h = 0; h < L; h++) {
+                for (int i = 0; i < C; i++) {
+                    System.out.printf("%s", MAfinalcomparacao[h][i]);
                 }
                 System.out.println();
             }
             System.out.println();
+            double percentagemdetemperaturasalteradas=((double)contadorMAalterados/contadortotal)*100;
+            System.out.printf("Alert Levels changes due to temperature variations by 10ºC : %.2f%%\n", percentagemdetemperaturasalteradas);
         }
 
 

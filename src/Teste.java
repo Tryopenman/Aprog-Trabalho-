@@ -1,3 +1,4 @@
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -30,9 +31,55 @@ public class Teste {
             String[][] MAalteradopor10C = percentagemAlteracao(Temperaturas,L,C);
             System.out.println("h)");
             MAafetadopelovento(MAalteradopor10C,L,C);
+            int[][] temperaturasomada = temperaturasSomadas(temperaturas,L,C);
             System.out.println("i)");
+            mostrarCoordenadas(temperaturasomada,L,C);
 
         }
+
+    public static void mostrarCoordenadas(int[][] temperaturas, int L, int C) {
+            int temperaturaMax=50;
+            int contadorFogo=0;
+            int c1=10,c2=10;
+            for (int h=0;h<L;h++) {
+                for (int i = 0; i < C; i++) {
+                    if (temperaturas[h][i] > temperaturaMax) {
+                        contadorFogo++;
+                        if (i < c2) {
+                            c1 = h;
+                            c2 = i;
+                        }
+                    }
+                }
+            }
+                if (c1==0){
+                    c1++;
+
+                } else if (c1>0&&c1<L-1) {
+                    c1=c1;
+                } else if (c1==L-1) {
+                    c1--;
+                }
+                if (c2==0){
+                    c2++;
+
+                } else if (c2>0&&c2<C) {
+                    c2=c2-1;
+                }
+                for (int h=0;h<L;h++) {
+                    for (int i = 0; i < C; i++) {
+                        System.out.printf("%4d", temperaturas[h][i]);
+                    }
+                    System.out.println();
+                }
+                System.out.println();
+                if (contadorFogo==0){
+                System.out.println("no fire\n\n");
+                }else {
+                    System.out.println("drop water at (" + c1 + " , " + c2 + ")\n\n");
+                }
+        }
+
 
 
     private static void MAafetadopelovento(String[][] MAalteradopor10C, int L, int C) {
@@ -51,6 +98,15 @@ public class Teste {
             System.out.println();
         }
         System.out.println();
+        }
+        public static int[][] temperaturasSomadas(int[][] Temperaturas, int L, int C){
+            int[][] temperaturaSomada = new int[L][C];
+            for (int h = 0; h < L; h++) {
+                for (int i = 0; i < C; i++) {
+                    temperaturaSomada[h][i]=Temperaturas[h][i] + 10;
+                }
+            }
+            return temperaturaSomada;
         }
 
     private static String[][] percentagemAlteracao(int[][] Temperaturas,int L,int C) {     // //int [][] Temperaturas = int [][] mostrarNovoMA

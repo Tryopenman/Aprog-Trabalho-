@@ -34,6 +34,7 @@ public class Projeto {
         System.out.println("i)");
         mostrarCoordenadas(temperaturasomada, L, C);
         System.out.println("j)");
+        procurarSafeColumn(temperaturasomada,L,C);
 
     }
 
@@ -272,6 +273,28 @@ public class Projeto {
             System.out.println("no fire\n\n");
         }else {
             System.out.println("drop water at (" + c1 + " , " + c2 + ")\n\n");
+        }
+    }
+    private static void procurarSafeColumn(int[][] temperaturasomada, int L, int C) {
+        int avaliarcoluna=0;
+        int contador=0;
+        int cont=0;
+        for (int i = 0; i < C; i++) {
+            for (int h = 0; h < L; h++) {
+                if (temperaturasomada[h][i] < 40) {
+                    contador++;
+                }
+            }
+            if(contador==L){
+                avaliarcoluna=i;
+                cont++;
+            }
+            contador=0;
+        }
+        if(cont!=0) {
+            System.out.println("safe column = " + "(" + avaliarcoluna + ")");
+        }else{
+            System.out.println("safe column = NONE");
         }
     }
 }

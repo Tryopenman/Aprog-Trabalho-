@@ -37,7 +37,23 @@ public class Teste {
             System.out.println("j)");
             procurarSafeColumn(temperaturasomada,L,C);
         }
-
+        public static String[][] guardarMA(int[][] Temperaturas, int L,int C){
+            String[][] MA = new String[L][C];
+            for (int h = 0; h < L; h++) {
+                for (int i = 0; i < C; i++) {
+                    if (Temperaturas[h][i] < 20) {
+                        MA[h][i] = "M";
+                    } else if (Temperaturas[h][i] >= 20 && Temperaturas[h][i] < 30) {
+                        MA[h][i] = "H";
+                    } else if (Temperaturas[h][i] >= 30 && Temperaturas[h][i] < 40) {
+                        MA[h][i] = "E";
+                    } else {
+                        MA[h][i] = "C";
+                    }
+                }
+            }
+            return MA;
+        }
     private static void mostrarMAtela(int[][] temperaturas, int L, int C) {
         for (int h = 0; h < L; h++) {
             for (int i = 0; i < C; i++) {
@@ -175,32 +191,8 @@ public class Teste {
                     temperaturaSomada[h][i] = Temperaturas[h][i] + 10;
                 }
             }
-            for (int h = 0; h < L; h++) {
-                for (int i = 0; i < C; i++) {
-                    if (temperaturaSomada[h][i] < 20) {
-                        MAtemperaturasSomadas[h][i] = "M";
-                    } else if (temperaturaSomada[h][i] >= 20 && temperaturaSomada[h][i] < 30) {
-                        MAtemperaturasSomadas[h][i] = "H";
-                    } else if (temperaturaSomada[h][i] >= 30 && temperaturaSomada[h][i] < 40) {
-                        MAtemperaturasSomadas[h][i] = "E";
-                    } else {
-                        MAtemperaturasSomadas[h][i] = "C";
-                    }
-                }
-            }
-            for (int h = 0; h < L; h++) {
-                for (int i = 0; i < C; i++) {
-                    if (Temperaturas[h][i] < 20) {
-                        MAtemperaturas[h][i] = "M";
-                    } else if (Temperaturas[h][i] >= 20 && Temperaturas[h][i] < 30) {
-                        MAtemperaturas[h][i] = "H";
-                    } else if (Temperaturas[h][i] >= 30 && Temperaturas[h][i] < 40) {
-                        MAtemperaturas[h][i] = "E";
-                    } else {
-                        MAtemperaturas[h][i] = "C";
-                    }
-                }
-            }
+            MAtemperaturasSomadas=guardarMA(temperaturaSomada,L,C);
+            MAtemperaturas= guardarMA(Temperaturas,L,C);
             int contadortotal = L * C;
             String[][] MAfinalcomparacao = new String[L][C];
             int contadorMAalterados = 0;
@@ -209,7 +201,7 @@ public class Teste {
                     if (!MAtemperaturas[h][i].equals(MAtemperaturasSomadas[h][i])) {
                         MAfinalcomparacao[h][i] = MAtemperaturasSomadas[h][i];
                         contadorMAalterados++;
-                    } else {                                                                      //escrita dos valores de temperatura na tela//
+                    } else {
                         MAfinalcomparacao[h][i] = MAtemperaturas[h][i];
                     }
                 }

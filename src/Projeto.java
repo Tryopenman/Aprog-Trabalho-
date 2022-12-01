@@ -35,20 +35,25 @@ public class Projeto {
         mostrarCoordenadas(temperaturasomada, L, C);
         System.out.println("j)");
         procurarSafeColumn(temperaturasomada,L,C);
-
     }
 
-    private static void mostrarMT(int[][] temperaturas, int L, int C) {
+    private static void mostrarMT ( int[][] temperaturas, int L, int C){
+        mostrarMTtela(temperaturas,L,C);
+    }
+    private static void mostrarMTtela(int[][] temperaturas, int L, int C) {
         for (int h = 0; h < L; h++) {
             for (int i = 0; i < C; i++) {
-                System.out.printf("%4d", temperaturas[h][i]);                  //escrita dos valores de temperatura na tela//
+                System.out.printf("%4d", temperaturas[h][i]);
             }
             System.out.println();
         }
         System.out.println();
     }
 
-    private static void mostrarMA(int[][] temperaturas, int L, int C) {
+    private static void mostrarMA ( int[][] temperaturas, int L, int C){
+        mostrarMAtela(temperaturas,L,C);
+    }
+    private static void mostrarMAtela(int[][] temperaturas, int L, int C) {
         for (int h = 0; h < L; h++) {
             for (int i = 0; i < C; i++) {
                 if (temperaturas[h][i] < 20) {
@@ -79,21 +84,7 @@ public class Projeto {
             System.out.println();
         }
         System.out.println();
-        for (int h = 0; h < L; h++) {
-            for (int i = 0; i < C; i++) {
-                if (temperaturas[h][i] < 20) {
-                    System.out.print("M");
-                } else if (temperaturas[h][i] >= 20 && temperaturas[h][i] < 30) {
-                    System.out.print("H");
-                } else if (temperaturas[h][i] >= 30 && temperaturas[h][i] < 40) {
-                    System.out.print("E");
-                } else if (temperaturas[h][i] >= 40) {
-                    System.out.print("C");
-                }
-            }
-            System.out.println();
-        }
-        System.out.println();
+        mostrarMAtela(temperaturas,L,C);
         return temperaturas;
     }
 
@@ -129,7 +120,7 @@ public class Projeto {
     }
 
     private static void mostrarTemperaturamenor(int[][] temperaturas, int L, int C) {
-        int menor = 10000;                   //? perguntar
+        int menor = 10000;
         int diferencaCatastrophic;
         for (int h = 0; h < L; h++) {
             for (int i = 0; i < C; i++) {
@@ -143,7 +134,7 @@ public class Projeto {
         System.out.println();
     }
 
-    private static String[][] percentagemAlteracao(int[][] Temperaturas, int L, int C) {     // //int [][] Temperaturas = int [][] mostrarNovoMA
+    private static String[][] percentagemAlteracao ( int[][] Temperaturas, int L, int C) {
         int[][] temperaturaSomada = new int[L][C];
         int[][] temperaturas = Temperaturas;
         String[][] MAtemperaturas = new String[L][C];
@@ -153,32 +144,8 @@ public class Projeto {
                 temperaturaSomada[h][i] = Temperaturas[h][i] + 10;
             }
         }
-        for (int h = 0; h < L; h++) {
-            for (int i = 0; i < C; i++) {
-                if (temperaturaSomada[h][i] < 20) {
-                    MAtemperaturasSomadas[h][i] = "M";
-                } else if (temperaturaSomada[h][i] >= 20 && temperaturaSomada[h][i] < 30) {
-                    MAtemperaturasSomadas[h][i] = "H";
-                } else if (temperaturaSomada[h][i] >= 30 && temperaturaSomada[h][i] < 40) {
-                    MAtemperaturasSomadas[h][i] = "E";
-                } else {
-                    MAtemperaturasSomadas[h][i] = "C";
-                }
-            }
-        }
-        for (int h = 0; h < L; h++) {
-            for (int i = 0; i < C; i++) {
-                if (Temperaturas[h][i] < 20) {
-                    MAtemperaturas[h][i] = "M";
-                } else if (Temperaturas[h][i] >= 20 && Temperaturas[h][i] < 30) {
-                    MAtemperaturas[h][i] = "H";
-                } else if (Temperaturas[h][i] >= 30 && Temperaturas[h][i] < 40) {
-                    MAtemperaturas[h][i] = "E";
-                } else {
-                    MAtemperaturas[h][i] = "C";
-                }
-            }
-        }
+        MAtemperaturasSomadas=guardarMA(temperaturaSomada,L,C);
+        MAtemperaturas= guardarMA(Temperaturas,L,C);
         int contadortotal = L * C;
         String[][] MAfinalcomparacao = new String[L][C];
         int contadorMAalterados = 0;
@@ -187,23 +154,33 @@ public class Projeto {
                 if (!MAtemperaturas[h][i].equals(MAtemperaturasSomadas[h][i])) {
                     MAfinalcomparacao[h][i] = MAtemperaturasSomadas[h][i];
                     contadorMAalterados++;
-                } else {                                                                      //escrita dos valores de temperatura na tela//
+                } else {
                     MAfinalcomparacao[h][i] = MAtemperaturas[h][i];
                 }
             }
         }
-        for (int h = 0; h < L; h++) {
-            for (int i = 0; i < C; i++) {
-                System.out.printf("%s", MAfinalcomparacao[h][i]);
-            }
-            System.out.println();
-        }
-        System.out.println();
+        mostrarMTtelaAlterado(MAfinalcomparacao,L,C);
         double percentagemdetemperaturasalteradas = ((double) contadorMAalterados / contadortotal) * 100;
         System.out.printf("Alert Levels changes due to temperature variations by 10ºC : %.2f%%\n\n", percentagemdetemperaturasalteradas);
         return MAfinalcomparacao;
     }
-
+    public static String[][] guardarMA(int[][] Temperaturas, int L,int C){
+        String[][] MA = new String[L][C];
+        for (int h = 0; h < L; h++) {
+            for (int i = 0; i < C; i++) {
+                if (Temperaturas[h][i] < 20) {
+                    MA[h][i] = "M";
+                } else if (Temperaturas[h][i] >= 20 && Temperaturas[h][i] < 30) {
+                    MA[h][i] = "H";
+                } else if (Temperaturas[h][i] >= 30 && Temperaturas[h][i] < 40) {
+                    MA[h][i] = "E";
+                } else {
+                    MA[h][i] = "C";
+                }
+            }
+        }
+        return MA;
+    }
     private static void MAafetadopelovento(String[][] MAalteradopor10C, int L, int C) {
         String[][] MAalteradopelosalertas = MAalteradopor10C;
         for (int h = L - 1; h > 0; h--) {
@@ -213,14 +190,18 @@ public class Projeto {
                 }
             }
         }
+        mostrarMTtelaAlterado(MAalteradopelosalertas,L,C);
+    }
+    private static void mostrarMTtelaAlterado(String[][] MAfinalcomparacao,int L,int C){
         for (int h = 0; h < L; h++) {
             for (int i = 0; i < C; i++) {
-                System.out.printf("%s", MAalteradopelosalertas[h][i]);
+                System.out.printf("%s", MAfinalcomparacao[h][i]);
             }
             System.out.println();
         }
         System.out.println();
     }
+
 
     public static int[][] temperaturasSomadas(int[][] Temperaturas, int L, int C) {
         int[][] temperaturaSomada = new int[L][C];
@@ -298,5 +279,6 @@ public class Projeto {
         }
     }
 }
+
 
 

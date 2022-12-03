@@ -79,7 +79,7 @@ public class Projeto {
         }
         for (int h = 0; h < L; h++) {
             for (int i = 0; i < C; i++) {
-                System.out.printf("%4d", temperaturas[h][i]);                  //escrita dos valores de temperatura na tela//
+                System.out.printf("%4d", temperaturas[h][i]);
             }
             System.out.println();
         }
@@ -214,46 +214,39 @@ public class Projeto {
     }
 
 
-    public static void mostrarCoordenadas(int[][] temperaturas, int L, int C) {
-        int temperaturaMax=50;
-        int contadorFogo=0;
-        int c1=10,c2=10;
-        for (int h=0;h<L;h++) {
-            for (int i = 0; i < C; i++) {
-                if (temperaturas[h][i] > temperaturaMax) {
-                    contadorFogo++;
-                    if (i < c2) {
-                        c1 = h;
-                        c2 = i;
+    public static void mostrarCoordenadas ( int[][] temperaturas, int L, int C){
+        int temperaturaMax = 50;
+        int contadorFogo = 0;
+        int c1 = 0, c2 = 0;
+        int contadorFogo2=0;
+        for (int h = 0; h < L-2; h++) {
+            for (int i = 0; i < C - 2; i++) {
+                contadorFogo2=0;
+                for (int j=h; j<h+3;j++){
+                    for (int k=i;k<i+3;k++){
+                        if (temperaturas[j][k]>temperaturaMax){
+                            contadorFogo2++;
+                        }
                     }
+                }
+                if (contadorFogo2>contadorFogo){
+                    contadorFogo=contadorFogo2;
+                    c1=h+1;
+                    c2=i+1;
                 }
             }
         }
-        if (c1==0){
-            c1++;
-
-        } else if (c1>0&&c1<L-1) {
-            c1=c1;
-        } else if (c1==L-1) {
-            c1--;
-        }
-        if (c2==0){
-            c2++;
-
-        } else if (c2>0&&c2<C) {
-            c2=c2-1;
-        }
-        for (int h=0;h<L;h++) {
+        for (int h = 0; h < L; h++) {
             for (int i = 0; i < C; i++) {
                 System.out.printf("%4d", temperaturas[h][i]);
             }
             System.out.println();
         }
         System.out.println();
-        if (contadorFogo==0){
+        if (contadorFogo == 0) {
             System.out.println("no fire\n\n");
-        }else {
-            System.out.println("drop water at (" + c1 + " , " + c2 + ")\n\n");
+        } else {
+            System.out.println("drop water at (" + c1 + " , " + c2 + ")\n");
         }
     }
     private static void procurarSafeColumn(int[][] temperaturasomada, int L, int C) {
